@@ -68,20 +68,19 @@ a:hover {
 
 }
 
-links, .alt-links {
+.links, .alt-links {
     color: var(--accent);
     transition: color .18s ease;
-
 }
 
 .links:hover, .alt-links:hover {
     color: var(--accent-300);
-
 }
 
 /* Header */
 
 
+/* Main header (single consolidated block) */
 #main-header {
     position: sticky;
     top: 0;
@@ -92,30 +91,13 @@ links, .alt-links {
     gap: var(--gap);
     padding: 10px 18px;
     background: transparent;
-    transition: transform .36s cubic-bezier(.2,.9,.2,1), opacity .22s ease, box-shadow .22s ease;
-    border-bottom: 1px solid transparent; /* keep border width/style stable to avoid color flash */
+    transform: translateY(0);
+    transition: transform .28s ease, opacity .22s ease, box-shadow .22s ease;
+    border-bottom: 1px solid transparent; /* keep border geometry stable to avoid flash */
     will-change: transform, opacity, box-shadow;
     position: relative;
     isolation: isolate;
-
 }
-
-    #main-header {
-        position: sticky;
-        top: 0;
-        z-index: 40;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--gap);
-        padding: 10px 18px;
-        background: transparent;
-        transform: translateY(0);
-        transition: transform .28s ease, opacity .22s ease, box-shadow .22s ease;
-        border-bottom: 1px solid transparent; /* keep border geometry stable to avoid flash */
-        will-change: transform, opacity, box-shadow;
-
-    }
 
 #main-header.scrolled {
     /* scrolled state shows a visible border and shadow; background is rendered
@@ -125,19 +107,11 @@ links, .alt-links {
 
 }
 
-    /* compact header state used when user scrolls down: reduce vertical padding
-       so buttons sit at the very top of the viewport; keep the background present */
-    #main-header.compact {
-        transform: translateY(0);
-        padding-top: 0;
-        padding-bottom: 6px;
-        align-items: flex-start; /* align content to the top so buttons sit at the top edge */
-    }
 
-    /* shrink the logo slightly in compact mode so the buttons have room at the top */
+    /* shrink the logo slightly in compact mode so the buttons have room at the top
     #main-header.compact #head-logo {
         height: 40px;
-    }
+    } */
 
 /* Side box (hidden by default) - small vertical nav that appears when body.side-visible */
 #side-box {
