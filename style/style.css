@@ -1,34 +1,23 @@
 /* ########################### */
-/* Devon RFU Colts Style Sheet */
+/* Barnaby Adams Portfolio */
 /* ########################### */
 
 /* ########################## */
-/*########### BODY ###########*/
+/*########### THEME ##########*/
 /* ########################## */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #2e2e2e;
-}
-
-.links {
-    color: #00a755;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.links:hover {
-    color: white;
-}
-/* Portfolio stylesheet — neatened and simplified */
-
 :root {
-    --bg: #0b1220;
-    --surface: #0f1724;
-    --card: #0c1320;
+    /* warm, dark background to sit behind the orange accents */
+    --bg: #120a03;
+    --bg-2: #070402;
+    --surface: #1a0f05;
+    --card: #150c04;
     --text: #e6eef6;
-    --muted: #94a3b8;
-    --accent: #06b6a4; /* teal */
+    --muted: #bfa183;
+    --accent: #f89828; /* brand orange */
+    --accent-dark: #c76b12;
+    --accent-300: #ffb86b;
+    --accent-100: #ffe8d2;
+    --accent-contrast: #1a1200; /* text on accent */
     --radius: 10px;
     --gap: 20px;
 
@@ -46,10 +35,15 @@ html, body {
 
 }
 
+/* Use native smooth scrolling where supported */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(180deg, var(--bg), #071021 140%);
+    background: linear-gradient(180deg, var(--bg), var(--bg-2) 140%);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -74,18 +68,19 @@ a:hover {
 
 }
 
-.links, .alt-links {
+links, .alt-links {
     color: var(--accent);
     transition: color .18s ease;
 
 }
 
 .links:hover, .alt-links:hover {
-    color: #9ff0df;
+    color: var(--accent-300);
 
 }
 
 /* Header */
+
 
 #main-header {
     position: sticky;
@@ -96,12 +91,125 @@ a:hover {
     justify-content: space-between;
     gap: var(--gap);
     padding: 10px 18px;
-    background: rgba(6,6,8,0.55);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(255,255,255,0.03);
+    background: transparent;
+    transition: transform .36s cubic-bezier(.2,.9,.2,1), opacity .22s ease, box-shadow .22s ease;
+    border-bottom: 1px solid transparent; /* keep border width/style stable to avoid color flash */
+    will-change: transform, opacity, box-shadow;
+    position: relative;
+    isolation: isolate;
 
 }
 
+    #main-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--gap);
+        padding: 10px 18px;
+        background: transparent;
+        transform: translateY(0);
+        transition: transform .28s ease, opacity .22s ease, box-shadow .22s ease;
+        border-bottom: 1px solid transparent; /* keep border geometry stable to avoid flash */
+        will-change: transform, opacity, box-shadow;
+
+    }
+
+#main-header.scrolled {
+    /* scrolled state shows a visible border and shadow; background is rendered
+       via the ::before pseudo-element (opacity) for smoother transitions */
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 6px 18px rgba(2,6,10,0.35);
+
+}
+
+    /* compact header state used when user scrolls down: reduce vertical padding
+       so buttons sit at the very top of the viewport; keep the background present */
+    #main-header.compact {
+        transform: translateY(0);
+        padding-top: 0;
+        padding-bottom: 6px;
+        align-items: flex-start; /* align content to the top so buttons sit at the top edge */
+    }
+
+    /* shrink the logo slightly in compact mode so the buttons have room at the top */
+    #main-header.compact #head-logo {
+        height: 40px;
+    }
+
+/* Side box (hidden by default) - small vertical nav that appears when body.side-visible */
+#side-box {
+    position: fixed;
+    right: 14px;
+    top: 12%; /* move side box toward the top */
+    transform: translateX(120%);
+    /* use theme surface with a subtle vertical gradient for depth */
+    background: linear-gradient(180deg, rgba(20,12,6,0.94), rgba(14,9,5,0.90));
+    color: var(--text);
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 10px 30px rgba(2,6,10,0.45);
+    transition: transform .32s cubic-bezier(.2,.9,.2,1), opacity .22s ease;
+    opacity: 0;
+    z-index: 1200;
+    min-width: 48px;
+}
+
+#side-box #side-nav-buttons { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+
+#side-box a { color: var(--text); padding: 6px; display: inline-block; }
+/* Remove underline for side-box links (normal, hover, focus) */
+#side-box a,
+#side-box a:hover,
+#side-box a:focus,
+#side-box .nav-buttons,
+#side-box .nav-buttons:hover,
+#side-box .nav-buttons:focus {
+    text-decoration: none;
+}
+
+/* visible when body.side-visible is set */
+body.side-visible #side-box {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* move header off top when side box visible */
+#main-header.side-hidden {
+    transform: translateY(calc(-110%));
+    opacity: 0;
+    pointer-events: none;
+}
+
+    /* Use a pseudo-element as the header background and blur layer. Transition its opacity
+       instead of animating background/backdrop-filter directly to avoid repaint glitches. */
+    #main-header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        /* strong orange on the right fading to transparent to the left */
+        background: linear-gradient(90deg, transparent 40%, rgba(248,152,40,0.96) 100%);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(255,255,255,0.03);
+        /* subtle visible tint by default; intensifies when scrolled */
+        opacity: 0.18;
+        pointer-events: none;
+        transition: opacity .22s ease;
+        z-index: 0;
+    }
+
+    #main-header > * {
+        position: relative;
+        z-index: 1; /* ensure header content sits above the ::before background */
+    }
+
+    /* show background via opacity on the pseudo-element */
+    #main-header.scrolled::before {
+        opacity: 1;
+    }
 #head-logo {
     height: 56px;
     display: block;
@@ -125,6 +233,31 @@ a:hover {
 
 }
 
+/* Hover lift: slight upward movement and soft shadow for affordance */
+.nav-buttons {
+    transition: transform .18s ease, box-shadow .18s ease;
+    will-change: transform, box-shadow;
+}
+
+.nav-buttons:hover, .nav-buttons:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(2,6,10,0.38);
+    z-index: 2;
+}
+
+/* Side-box is vertical; use a small horizontal nudge instead of vertical lift */
+#side-box .nav-buttons:hover, #side-box .nav-buttons:focus {
+    transform: translateX(-4px);
+    box-shadow: 0 8px 18px rgba(2,6,10,0.36);
+}
+
+/* keep nav button text from underlining on hover (global `a:hover` exists above) */
+#main-nav-buttons .nav-buttons,
+#main-nav-buttons .nav-buttons:hover,
+#main-nav-buttons .nav-buttons:focus {
+    text-decoration: none;
+}
+
 .nav-buttons::after {
     content: "";
     position: absolute;
@@ -133,7 +266,7 @@ a:hover {
     width: 48%;
     height: 3px;
     border-radius: 6px;
-    background: linear-gradient(90deg, var(--accent), #34d5bd);
+    background: var(--accent);
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
     transition: transform .22s ease;
@@ -167,7 +300,7 @@ a:hover {
 
 #sign-up-button {
     background: var(--accent);
-    color: #012a25;
+    color: var(--accent-contrast);
     border: none;
 
 }
@@ -175,7 +308,10 @@ a:hover {
 /* Hero */
 
 #hero {
-    padding: 80px 0 60px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 0 60px;
     text-align: center;
 
 }
@@ -197,7 +333,7 @@ a:hover {
 .cta {
     display: inline-block;
     background: var(--accent);
-    color: #012a25;
+    color: var(--accent-contrast);
     padding: 10px 18px;
     border-radius: 10px;
     font-weight: 700;
