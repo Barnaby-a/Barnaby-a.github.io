@@ -1,9 +1,11 @@
+// Backup of header.js before renaming
+
 // Minimal side-box + header behaviour
 let lastScrollY = window.scrollY || 0;
 const TOP_THRESHOLD = 10; // px from top to consider "at top"
 
 function handleScroll() {
-    const header = document.getElementById('site-header');
+    const header = document.getElementById('main-header');
     if (!header) return;
     const currentY = window.scrollY || window.pageYOffset || 0;
 
@@ -29,7 +31,7 @@ window.addEventListener('scroll', handleScroll, { passive: true });
 
 document.addEventListener('DOMContentLoaded', () => {
     // mark current path link active (if any)
-    const navLinks = document.querySelectorAll('.nav__item');
+    const navLinks = document.querySelectorAll('.nav-buttons');
     const currentPath = window.location.pathname;
     navLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath) link.classList.add('active');
@@ -100,22 +102,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // helper to set active link(s) by section id
     function setActiveById(id) {
         if (!id) return;
-        document.querySelectorAll('.nav__item').forEach(n => n.classList.remove('active'));
+        document.querySelectorAll('.nav-buttons').forEach(n => n.classList.remove('active'));
         // if id is 'hero' treat as Home (root href)
         if (id === 'hero' || id === 'home') {
             const homeSelectors = [
-                ".nav__item[href='#home']",
-                ".nav__item[href='/']",
-                ".nav__item[href='/index.html']",
-                ".nav__item[href='./index.html']",
-                ".nav__item[href='index.html']"
+                ".nav-buttons[href='#home']",
+                ".nav-buttons[href='/']",
+                ".nav-buttons[href='/index.html']",
+                ".nav-buttons[href='./index.html']",
+                ".nav-buttons[href='index.html']"
             ];
             const all = document.querySelectorAll(homeSelectors.join(','));
             if (all && all.length) { all.forEach(el => el.classList.add('active')); return; }
-            const first = document.querySelector('.nav__item'); if (first) first.classList.add('active');
+            const first = document.querySelector('.nav-buttons'); if (first) first.classList.add('active');
             return;
         }
-        document.querySelectorAll(".nav__item[href*='#" + id + "']").forEach(n => n.classList.add('active'));
+        document.querySelectorAll(".nav-buttons[href*='#" + id + "']").forEach(n => n.classList.add('active'));
     }
 
     // compute which section is most visible (largest visible height)
@@ -147,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const side = document.createElement('div');
         side.id = 'side-box';
         side.setAttribute('aria-hidden', 'true');
-        const mainNav = document.getElementById('nav-main');
+        const mainNav = document.getElementById('main-nav-buttons');
         if (mainNav) {
             const clone = mainNav.cloneNode(true);
             clone.id = 'side-nav-buttons';
