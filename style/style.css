@@ -68,12 +68,12 @@ a:hover {
 
 }
 
-.links, .alt-links {
+.links {
     color: var(--accent);
     transition: color .18s ease;
 }
 
-.links:hover, .alt-links:hover {
+.links:hover {
     color: var(--accent-300);
 }
 
@@ -81,7 +81,7 @@ a:hover {
 
 
 /* Main header (single consolidated block) */
-#main-header {
+#site-header {
     position: sticky;
     top: 0;
     z-index: 40;
@@ -99,7 +99,7 @@ a:hover {
     isolation: isolate;
 }
 
-#main-header.scrolled {
+#site-header.scrolled {
     /* scrolled state shows a visible border and shadow; background is rendered
        via the ::before pseudo-element (opacity) for smoother transitions */
     border-bottom: 1px solid rgba(255,255,255,0.03);
@@ -109,7 +109,7 @@ a:hover {
 
 
     /* shrink the logo slightly in compact mode so the buttons have room at the top
-    #main-header.compact #head-logo {
+    #site-header.compact #site-logo {
         height: 40px;
     } */
 
@@ -117,7 +117,7 @@ a:hover {
 #side-box {
     position: fixed;
     right: 14px;
-    top: 12%; /* move side box toward the top */
+    top: 10%; /* move side box toward the top */
     transform: translateX(120%);
     /* use theme surface with a subtle vertical gradient for depth */
     background: linear-gradient(180deg, rgba(20,12,6,0.94), rgba(14,9,5,0.90));
@@ -139,9 +139,9 @@ a:hover {
 #side-box a,
 #side-box a:hover,
 #side-box a:focus,
-#side-box .nav-buttons,
-#side-box .nav-buttons:hover,
-#side-box .nav-buttons:focus {
+#side-box .nav__item,
+#side-box .nav__item:hover,
+#side-box .nav__item:focus {
     text-decoration: none;
 }
 
@@ -152,7 +152,7 @@ body.side-visible #side-box {
 }
 
 /* move header off top when side box visible */
-#main-header.side-hidden {
+#site-header.side-hidden {
     transform: translateY(calc(-110%));
     opacity: 0;
     pointer-events: none;
@@ -160,7 +160,7 @@ body.side-visible #side-box {
 
     /* Use a pseudo-element as the header background and blur layer. Transition its opacity
        instead of animating background/backdrop-filter directly to avoid repaint glitches. */
-    #main-header::before {
+    #site-header::before {
         content: "";
         position: absolute;
         inset: 0;
@@ -175,29 +175,28 @@ body.side-visible #side-box {
         z-index: 0;
     }
 
-    #main-header > * {
+    #site-header > * {
         position: relative;
         z-index: 1; /* ensure header content sits above the ::before background */
     }
 
     /* show background via opacity on the pseudo-element */
-    #main-header.scrolled::before {
+    #site-header.scrolled::before {
         opacity: 1;
     }
-#head-logo {
+#site-logo {
     height: 56px;
     display: block;
 
 }
 
-#main-nav-buttons {
+#nav-main {
     display: flex;
     gap: 6px;
     align-items: center;
 
 }
-
-.nav-buttons {
+.nav__item {
     position: relative;
     color: var(--text);
     padding: 8px 14px;
@@ -208,31 +207,29 @@ body.side-visible #side-box {
 }
 
 /* Hover lift: slight upward movement and soft shadow for affordance */
-.nav-buttons {
+.nav__item {
     transition: transform .18s ease, box-shadow .18s ease;
     will-change: transform, box-shadow;
 }
-
-.nav-buttons:hover, .nav-buttons:focus {
+.nav__item:hover, .nav__item:focus {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(2,6,10,0.38);
     z-index: 2;
 }
 
 /* Side-box is vertical; use a small horizontal nudge instead of vertical lift */
-#side-box .nav-buttons:hover, #side-box .nav-buttons:focus {
+#side-box .nav__item:hover, #side-box .nav__item:focus {
     transform: translateX(-4px);
     box-shadow: 0 8px 18px rgba(2,6,10,0.36);
 }
 
 /* keep nav button text from underlining on hover (global `a:hover` exists above) */
-#main-nav-buttons .nav-buttons,
-#main-nav-buttons .nav-buttons:hover,
-#main-nav-buttons .nav-buttons:focus {
+#nav-main .nav__item,
+#nav-main .nav__item:hover,
+#nav-main .nav__item:focus {
     text-decoration: none;
 }
-
-.nav-buttons::after {
+.nav__item::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -246,8 +243,7 @@ body.side-visible #side-box {
     transition: transform .22s ease;
 
 }
-
-.nav-buttons:hover::after, .nav-buttons.active::after {
+.nav__item:hover::after, .nav__item.active::after {
     transform: translateX(-50%) scaleX(1);
 
 }
@@ -410,12 +406,12 @@ footer {
 /* Responsive tweaks */
 
 @media (max-width: 720px) {
-    #head-logo {
+    #site-logo {
         height: 48px;
 
     }
 
-    #main-nav-buttons {
+    #nav-main {
         display: none;
 
     }

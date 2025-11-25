@@ -1,3 +1,4 @@
+<!-- Backup of index.html before renaming IDs/classes -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,16 +12,16 @@
 
     <body>
 
-    <header id="site-header">
-        <div id="site-logo-wrap">
-            <a href="/"><img src="../static/favicon.svg" alt="Site Logo" id="site-logo"></a>
+    <header id="main-header">
+        <div id="head-logo-wrap">
+            <a href="/"><img src="../static/favicon.svg" alt="Site Logo" id="head-logo"></a>
         </div>
 
-        <nav id="nav-main">
-            <a class="nav__item" href="#home">Home</a>
-            <a class="nav__item" href="/#about">About</a>
-            <a class="nav__item" href="/#projects">Projects</a>
-            <a class="nav__item" href="/#contact">Contact</a>
+        <nav id="main-nav-buttons">
+            <a class="nav-buttons" href="#home">Home</a>
+            <a class="nav-buttons" href="/#about">About</a>
+            <a class="nav-buttons" href="/#projects">Projects</a>
+            <a class="nav-buttons" href="/#contact">Contact</a>
         </nav>
     </header>
 
@@ -75,14 +76,14 @@
             
                 <div id="footer-sect-1-fract-2">
                     <h2>GET IN TOUCH</h2>
-                    <a href="mailto:barnaby" class="links">Send Message</a>
+                    <a href="mailto:barnaby" class="alt-links">Send Message</a>
                 </div>
 
                 <div id="footer-sect-1-fract-3">
                     <h2>QUICK LINKS</h2>
-                    <a href="/#about" class="links">About</a>
-                    <a href="/#projects" class="links">Projects</a>
-                    <a href="/#contact" class="links">Contact</a>
+                    <a href="/#about" class="alt-links">About</a>
+                    <a href="/#projects" class="alt-links">Projects</a>
+                    <a href="/#contact" class="alt-links">Contact</a>
                 </div>
 
                 <div id="footer-sect-1-fract-4">
