@@ -1,0 +1,325 @@
+/* ########################### */
+/* Devon RFU Colts Style Sheet */
+/* ########################### */
+
+/* ########################## */
+/*########### BODY ###########*/
+/* ########################## */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #2e2e2e;
+}
+
+.links {
+    color: #00a755;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.links:hover {
+    color: white;
+}
+/* Portfolio stylesheet — neatened and simplified */
+
+:root {
+    --bg: #0b1220;
+    --surface: #0f1724;
+    --card: #0c1320;
+    --text: #e6eef6;
+    --muted: #94a3b8;
+    --accent: #06b6a4; /* teal */
+    --radius: 10px;
+    --gap: 20px;
+
+}
+
+/* Global */
+
+* {
+    box-sizing: border-box;
+
+}
+
+html, body {
+    height: 100%;
+
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg), #071021 140%);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+.wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+
+}
+
+a:hover {
+    text-decoration: underline;
+
+}
+
+.links, .alt-links {
+    color: var(--accent);
+    transition: color .18s ease;
+
+}
+
+.links:hover, .alt-links:hover {
+    color: #9ff0df;
+
+}
+
+/* Header */
+
+#main-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap);
+    padding: 10px 18px;
+    background: rgba(6,6,8,0.55);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+
+}
+
+#head-logo {
+    height: 56px;
+    display: block;
+
+}
+
+#main-nav-buttons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+
+}
+
+.nav-buttons {
+    position: relative;
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+
+}
+
+.nav-buttons::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    width: 48%;
+    height: 3px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--accent), #34d5bd);
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform .22s ease;
+
+}
+
+.nav-buttons:hover::after, .nav-buttons.active::after {
+    transform: translateX(-50%) scaleX(1);
+
+}
+
+#account-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+}
+
+.account-buttons {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+
+}
+
+#log-in-button {
+    border: 2px solid rgba(255,255,255,0.06);
+    color: var(--text);
+
+}
+
+#sign-up-button {
+    background: var(--accent);
+    color: #012a25;
+    border: none;
+
+}
+
+/* Hero */
+
+#hero {
+    padding: 80px 0 60px;
+    text-align: center;
+
+}
+
+#hero h1 {
+    margin: 0 0 12px;
+    font-size: 2.25rem;
+    line-height: 1.05;
+
+}
+
+.lead {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin: 0 0 18px;
+
+}
+
+.cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #012a25;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+
+}
+
+.muted {
+    color: var(--muted);
+    margin-left: 12px;
+
+}
+
+/* Sections */
+
+section {
+    padding: 36px 0;
+
+}
+
+section h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: var(--text);
+
+}
+
+.projects-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+    gap: 18px;
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+
+}
+
+.projects-list li {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding: 18px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.03);
+
+}
+
+.projects-list h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+
+}
+
+/* Footer */
+
+footer {
+    background: rgba(6,8,10,0.6);
+    color: var(--muted);
+    border-top: 1px solid rgba(255,255,255,0.03);
+
+}
+
+#footer-content-wrap {
+    padding: 30px 20px;
+
+}
+
+#footer-section-1 {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+#footer-section-2 {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 18px;
+
+}
+
+#footer-sect-1-fract-1 img {
+    height: 48px;
+
+}
+
+#footer-sect-1-fract-2, #footer-sect-1-fract-3, #footer-sect-1-fract-4 {
+    min-width: 160px;
+
+}
+
+/* Utility */
+
+.hidden {
+    display: none !important;
+
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 720px) {
+    #head-logo {
+        height: 48px;
+
+    }
+
+    #main-nav-buttons {
+        display: none;
+
+    }
+
+    .wrap {
+        padding: 28px 14px;
+
+    }
+
+    #hero {
+        padding: 48px 0;
+
+    }
+
+}
+
+/* End of stylesheet */
