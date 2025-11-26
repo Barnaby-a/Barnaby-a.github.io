@@ -2,6 +2,48 @@
 /* Barnaby Adams Portfolio */
 /* ########################### */
 
+/*
+===============================================================================
+DEVELOPER GUIDE (quick reference)
+
+This block documents the most common edits so you can change a single thing
+without hunting through the stylesheet.
+
+Key CSS variables (edit here to change site-wide values):
+- `--accent`         : primary brand accent (orange). Buttons, underlines, etc.
+- `--accent-dark`    : darker accent variant.
+- `--logo-color`     : colour used for inline SVG logos (default white).
+- `--text`, `--muted`: main and muted text colours.
+- `--header-height`  : used to calculate hero vertical centering.
+
+Important selectors and where to change them in the HTML/CSS:
+- Header: `#site-header` (HTML: header wrapper with nav). See header rules below.
+- Logo: `.logo--svg` (inline SVG uses `currentColor`). Change `--logo-color`.
+    Example override (make header logo orange):
+      #site-header .logo--svg { --logo-color: var(--accent); }
+- Side navigation: `#side-box` (small floating nav on the right).
+- Hero section: `#hero` and inner wrapper `#hero > .wrap` or `#hero-content-wrap`.
+    - Background image: `background-image: url(hero-1.jpg)` in the `#hero > .wrap` rule.
+    - Localized text panel: `.hero-panel` (contains heading, lead, CTAs).
+    - Primary CTA: `.cta` (solid accent button).
+    - Secondary/outlined CTA: `#hero > .wrap .muted` and `#hero .hero-panel .muted`.
+      To change outline thickness or text colour, update the rules near the
+      "Make the hero 'Get in touch' link" comment in this file.
+
+Quick examples:
+  - Change the site accent colour:
+      :root { --accent: #f89828; }
+
+  - Change the logo colour globally:
+      :root { --logo-color: #ffffff; }
+
+  - Change only the hero image (HTML-safe path relative to CSS):
+      Look for the `#hero > .wrap` rule where `background-image: url(...)` is set.
+
+
+===============================================================================
+*/
+
 /* ########################## */
 /*########### THEME ##########*/
 /* ########################## */
@@ -66,8 +108,13 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 
+}
+
+/* Keep underline on hover for header links only (preserve header affordance) */
+#site-header a:hover {
+    text-decoration: underline;
 }
 
 .links {
@@ -283,18 +330,36 @@ body.side-visible #side-box {
 
 }
 
-#log-in-button {
-    border: 2px solid rgba(255,255,255,0.06);
-    color: var(--text);
-
+/* Button utilities (semantic, reusable classes) */
+.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
 }
 
-#sign-up-button {
+.btn-primary {
     background: var(--accent);
     color: var(--accent-contrast);
     border: none;
-
 }
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid rgba(255,255,255,0.06);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+}
+
+/* Backwards-compatible aliases (keep older class names working) */
+/* `.cta` and `.muted` continue to work as before; new `.btn*` classes are preferred. */
 
 /* Hero */
 
@@ -376,6 +441,18 @@ body.side-visible #side-box {
     border: 1px solid rgba(255,255,255,0.06);
 }
 
+/* Hover / focus lift to match header nav affordance */
+.cta, .hero-panel .muted {
+    transition: transform .18s ease, box-shadow .18s ease;
+    will-change: transform, box-shadow;
+}
+.cta:hover, .cta:focus-visible,
+.hero-panel .muted:hover, .hero-panel .muted:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(2,6,10,0.38);
+    z-index: 6;
+}
+
 #hero h1 {
     margin: 0 0 12px;
     font-size: 2.25rem;
@@ -402,6 +479,25 @@ body.side-visible #side-box {
     border-radius: 10px;
     font-weight: 700;
 
+}
+
+/* Make the hero 'Get in touch' link look like an outlined button with transparent background */
+#hero > .wrap .muted,
+#hero .hero-panel .muted {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 2px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 8px;
+}
+#hero > .wrap .muted:hover,
+#hero .hero-panel .muted:hover {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.02);
 }
 
 .muted {
