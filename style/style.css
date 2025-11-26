@@ -468,7 +468,8 @@ body.side-visible #side-box {
     box-sizing: border-box;
     border: 2px solid var(--accent);
     border-radius: 14px;
-    background: transparent;
+    /* solid surface so profile card doesn't appear see-through */
+    background: linear-gradient(180deg, rgba(7,16,24,0.98), rgba(8,14,20,0.98));
     height: 100%; /* fill the hero height */
     overflow: hidden;
 }
