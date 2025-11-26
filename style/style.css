@@ -70,8 +70,9 @@ Quick examples:
     --orange-2: #ffb86b; /* lighter orange */
     --orange-3: #ffe8d2; /* pale highlight */
     --orange-glow: 0 0 36px rgba(255,106,0,0.08), 0 0 120px rgba(255,184,107,0.04);
-    --grid-color: rgba(255,106,0,0.06);
-    --grid-color-2: rgba(255,184,107,0.04);
+    /* grid colours shifted to the main accent (RGB: 255,106,0) for closer match */
+    --grid-color: rgba(255,106,0,0.07);
+    --grid-color-2: rgba(255,106,0,0.035);
     --bg-anim-speed: 20s; /* animation loop speed for background shift */
 }
 
@@ -112,24 +113,21 @@ body::before {
     content: "";
     position: fixed;
     /* enlarge the pseudo-element so animated shifts never reveal viewport edges */
-    inset: -15%;
+    inset: -12%;
     pointer-events: none;
     z-index: -2; /* keep behind all content */
     will-change: transform, opacity;
-    /* Layered background: warm orange washes + soft grid */
+    /* Layered background: simple grid overlay only (no colour washes or gradients) */
     background-image:
         /* vertical grid */
         repeating-linear-gradient(90deg, var(--grid-color) 0px, var(--grid-color) 1px, transparent 1px, transparent 48px),
         /* horizontal grid */
-        repeating-linear-gradient(0deg, var(--grid-color-2) 0px, var(--grid-color-2) 1px, transparent 1px, transparent 44px),
-        /* soft radial highlights */
-        radial-gradient(700px 380px at 12% 18%, rgba(255,184,107,0.12), transparent 20%),
-        radial-gradient(560px 320px at 88% 32%, rgba(255,106,0,0.10), transparent 22%),
-        linear-gradient(120deg, rgba(255,184,107,0.06), rgba(255,106,0,0.05) 40%, rgba(255,230,210,0.04) 70%);
-    background-blend-mode: screen, screen, screen, screen, normal;
-    /* ensure repeating grids tile correctly and large highlights cover beyond viewport */
-    background-size: 48px 100%, 100% 44px, 1400px 800px, 1200px 700px, cover;
-    background-position: 0 0, 0 0, 12% 18%, 88% 32%, 0 0;
+        repeating-linear-gradient(0deg, var(--grid-color-2) 0px, var(--grid-color-2) 1px, transparent 1px, transparent 44px);
+    /* keep blending default; grid sits on top of the solid `body` background */
+    background-blend-mode: normal, normal;
+    /* ensure repeating grids tile correctly and cover beyond viewport */
+    background-size: 48px 100%, 100% 44px;
+    background-position: 0 0, 0 0;
     transform-origin: center;
     animation: bgShift var(--bg-anim-speed) linear infinite;
 }
