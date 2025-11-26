@@ -138,10 +138,13 @@ body::after {
     inset: 0;
     pointer-events: none;
     z-index: -1;
-    /* subtle warm scanlines */
-    background-image: linear-gradient(transparent 70%, rgba(255,180,120,0.02) 71%);
-    background-size: 100% 4px;
-    opacity: 0.8;
+    /* very subtle orange tint + faint warm scanlines (tint alpha reduced) */
+    background-image:
+        linear-gradient(rgba(255,106,0,0.02), rgba(255,106,0,0.02)),
+        linear-gradient(transparent 70%, rgba(255,180,120,0.012) 71%);
+    background-size: cover, 100% 4px;
+    background-position: 0 0, 0 0;
+    opacity: 0.95;
 }
 
 @keyframes bgShift {
@@ -278,11 +281,11 @@ body.side-visible #side-box {
         position: absolute;
         inset: 0;
         /* strong orange on the right fading to transparent to the left; use brand accent for vibrancy */
-        background: linear-gradient(90deg, transparent 35%, var(--accent) 100%);
-        backdrop-filter: blur(6px);
-        border-bottom: 1px solid rgba(255,255,255,0.03);
-        /* subtle visible tint by default (increased for more pop); intensifies when scrolled */
-        opacity: 0.28;
+            /* fully opaque on the far right, fading to transparent toward the left */
+            /* stronger washed orange: transparent across most header, then a clearer but still washed orange at the far-right */
+                background: linear-gradient(90deg, rgba(255,106,0,0) 0%, rgba(255,106,0,0) 30%, rgba(255,106,0,0.5) 100%);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         pointer-events: none;
         transition: opacity .22s ease;
         z-index: 0;
@@ -293,10 +296,8 @@ body.side-visible #side-box {
         z-index: 1; /* ensure header content sits above the ::before background */
     }
 
-    /* show background via opacity on the pseudo-element */
-    #site-header.scrolled::before {
-        opacity: 1;
-    }
+    /* when scrolled the header gains a stronger shadow and border; the gradient stays the same */
+    /* scrolled state handled above on #site-header (shadow/border) — no opacity change here */
 #site-logo {
     height: 56px;
     display: block;
@@ -340,19 +341,36 @@ body.side-visible #side-box {
 
 /* Hover lift: slight upward movement and soft shadow for affordance */
 .nav__item {
-    transition: transform .18s ease, box-shadow .18s ease;
-    will-change: transform, box-shadow;
+    transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+    will-change: transform, box-shadow, background-color;
 }
-.nav__item:hover, .nav__item:focus {
+.nav__item:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(2,6,10,0.38);
+    background-color: rgba(0,0,0,0.22); /* subtle grey/black tint on hover */
+    z-index: 2;
+}
+.nav__item:focus-visible {
+    /* keep keyboard focus visible without the raised effect; slight tint for visibility */
+    transform: none;
+    box-shadow: 0 0 0 3px rgba(255,106,0,0.08);
+    background-color: rgba(0,0,0,0.14);
+    outline: none;
     z-index: 2;
 }
 
 /* Side-box is vertical; use a small horizontal nudge instead of vertical lift */
-#side-box .nav__item:hover, #side-box .nav__item:focus {
+#side-box .nav__item:hover {
     transform: translateX(-4px);
     box-shadow: 0 8px 18px rgba(2,6,10,0.36);
+    background-color: rgba(0,0,0,0.22);
+}
+#side-box .nav__item:focus-visible {
+    /* visible focus for keyboard users without movement */
+    transform: none;
+    box-shadow: 0 0 0 3px rgba(255,106,0,0.08);
+    background-color: rgba(0,0,0,0.14);
+    outline: none;
 }
 
 /* keep nav button text from underlining on hover (global `a:hover` exists above) */
