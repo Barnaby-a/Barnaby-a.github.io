@@ -21,6 +21,7 @@
     --logo-color: #ffffff; /* default logo colour */
     --radius: 10px;
     --gap: 20px;
+    --header-height: 64px; /* approximate sticky header height for vertical centering calculations */
 
 }
 
@@ -298,12 +299,53 @@ body.side-visible #side-box {
 /* Hero */
 
 #hero {
-    min-height: 100vh;
+    /* Full viewport hero but account for sticky header so the card is vertically centred
+       between header bottom and viewport bottom */
+    min-height: calc(100vh - var(--header-height));
     display: flex;
     align-items: center;
-    padding: 0 0 60px;
+    justify-content: center;
+    padding: 0; /* inner wrapper provides its own padding */
     text-align: center;
+}
 
+/* Ensure the hero's inner wrapper matches other section widths */
+/* The centered hero box should fill most of the viewport height on desktop */
+#hero > .wrap,
+#hero-content-wrap {
+    display: block;
+    width: 100%;
+    max-width: 1100px; /* same as .wrap */
+    margin: 0 auto;
+    padding: 40px 20px; /* match .wrap spacing */
+    background-image: url(hero-1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 25px;
+    box-sizing: border-box;
+    /* keep the centered hero box at a wide, short ratio (width is double the height) */
+    aspect-ratio: 2 / 1;
+    display: flex;
+    flex-direction: column; /* stack heading, tagline, buttons vertically */
+    gap: 6px;
+    align-items: center; /* horizontally center items */
+    justify-content: center; /* vertically center within the box */
+}
+
+/* Ensure children (heading, lead, buttons) sit above any background or overlays */
+#hero > .wrap, #hero-content-wrap { position: relative; }
+#hero > .wrap > * , #hero-content-wrap > * { position: relative; z-index: 2; }
+
+/* Subtle overlay behind content to improve contrast but below text */
+#hero > .wrap::before, #hero-content-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.28));
+    border-radius: 25px;
+    z-index: 1;
+    pointer-events: none;
 }
 
 #hero h1 {
@@ -316,9 +358,13 @@ body.side-visible #side-box {
 .lead {
     color: var(--muted);
     font-size: 1.05rem;
-    margin: 0 0 18px;
+    margin: 0 0 10px;
 
 }
+
+/* Tighter spacing for hero content */
+#hero > .wrap h1 { margin-bottom: 8px; }
+#hero > .wrap .cta { margin-top: 6px; }
 
 .cta {
     display: inline-block;
@@ -445,6 +491,7 @@ footer {
         padding: 48px 0;
 
     }
+    #hero > .wrap, #hero-content-wrap { height: auto; padding: 28px 14px; }
 
 }
 
