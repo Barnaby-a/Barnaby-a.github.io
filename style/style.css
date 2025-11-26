@@ -531,8 +531,10 @@ body.side-visible #side-box {
 
 @media (max-width: 900px) {
     #hero { flex-direction: column; gap: 18px; align-items: stretch; padding: 24px 14px; height: auto; }
-    .hero-profile { width: 100%; flex-direction: row; align-items: center; gap: 14px; height: auto; padding: 12px; }
-    .profile-pic { width: 128px; height: 128px; border-radius: 10px; }
+    /* Keep the profile card portrait (stacked) on all sizes — do NOT switch to row */
+    .hero-profile { width: 100%; flex-direction: column; align-items: center; gap: 14px; height: auto; padding: 12px; }
+    /* Scale the circular profile image down on small screens while keeping it square so the circle remains true */
+    .profile-pic { width: 128px; height: 128px; object-fit: cover; border-radius: 50%; }
     #hero > .wrap { width: 100%; padding: 20px; height: auto; }
     #hero > .wrap::before { border-radius: 12px; }
     .hero-panel { text-align: center; }
@@ -564,11 +566,42 @@ body.side-visible #side-box {
     z-index: 6;
 }
 
+/* Cover area for the profile card - cyber/orange theme */
+.profile-cover {
+    width: 100%;
+    height: 120px;
+    border-radius: 12px 12px 0 0;
+    background-image:
+        linear-gradient(90deg, rgba(255,106,0,0.18), rgba(255,184,107,0.06)),
+        repeating-linear-gradient(90deg, rgba(255,106,0,0.06) 0 1px, transparent 1px 28px),
+        repeating-linear-gradient(0deg, rgba(255,106,0,0.03) 0 1px, transparent 1px 28px);
+    background-blend-mode: overlay, normal, normal;
+    box-shadow: inset 0 -10px 40px rgba(255,106,0,0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Profile picture (circular) overlapping the cover */
+.profile-pic {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 28px rgba(255,106,0,0.06);
+    border: 4px solid rgba(6,10,15,0.9);
+    margin: -70px auto 8px; /* overlap half of the profile-pic onto the cover */
+    position: relative;
+    z-index: 3;
+}
+
+/* Make sure profile elements are centered */
+.hero-profile { align-items: center; text-align: center; }
+
 #hero h1 {
     margin: 0 0 12px;
     font-size: 2.25rem;
     line-height: 1.05;
-
 }
 
 .lead {
@@ -695,6 +728,34 @@ footer {
 #footer-sect-1-fract-2, #footer-sect-1-fract-3, #footer-sect-1-fract-4 {
     min-width: 160px;
 
+}
+
+/* Center-align social icons in the footer 'FOLLOW' column */
+#footer-sect-1-fract-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+/* social-row holds the icons in a horizontal row */
+#footer-sect-1-fract-4 .social-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer-sect-1-fract-4 a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer-sect-1-fract-4 img {
+    width: 28px;
+    height: 28px;
+    display: block;
 }
 
 /* Utility */
