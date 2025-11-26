@@ -485,8 +485,41 @@ body.side-visible #side-box {
     display: block;
     box-shadow: 0 14px 40px rgba(0,0,0,0.6);
 }
-.profile-name { margin: 8px 0 4px; font-size: 1.25rem; }
+.profile-name { margin: 8px 0 4px; font-size: 1.25rem; display: flex; align-items: center; gap: 8px; justify-content: center; }
 .about { margin: 0 0 8px; color: var(--muted); }
+
+/* Small title under the profile name */
+.profile-title {
+    margin: 0 0 6px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
+}
+
+/* Locations row (pin icons + text) */
+.location-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0 10px;
+    flex-wrap: wrap;
+}
+.location {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+.location .pin { width: 18px; height: 18px; display: inline-block; }
+
+/* Verified badge next to the profile name */
+.verified-badge { width: 18px; height: 18px; display: inline-block; vertical-align: middle; }
+
+/* GitHub contributions calendar */
+/* GitHub calendar removed */
 
 #hero > .wrap, #hero-content-wrap {
     flex: 1 1 60%;
@@ -536,6 +569,10 @@ body.side-visible #side-box {
     .hero-profile { width: 100%; flex-direction: column; align-items: center; gap: 14px; height: auto; padding: 12px; }
     /* Scale the circular profile image down on small screens while keeping it square so the circle remains true */
     .profile-pic { width: 128px; height: 128px; object-fit: cover; border-radius: 50%; }
+    /* Make sure the cover stays visible on small screens and avatar overlap is adjusted */
+    .hero-profile { overflow: visible; }
+    .profile-cover { height: 96px; border-radius: 12px 12px 0 0; z-index: 2; display: block; }
+    .profile-pic { margin: -64px auto 8px; }
     #hero > .wrap { width: 100%; padding: 20px; height: auto; }
     #hero > .wrap::before { border-radius: 12px; }
     .hero-panel { text-align: center; }
@@ -572,10 +609,11 @@ body.side-visible #side-box {
     width: 100%;
     height: 120px;
     border-radius: 12px 12px 0 0;
+    /* slightly stronger orange wash so the cover reads clearly against dark backgrounds */
     background-image:
-        linear-gradient(90deg, rgba(255,106,0,0.18), rgba(255,184,107,0.06)),
-        repeating-linear-gradient(90deg, rgba(255,106,0,0.06) 0 1px, transparent 1px 28px),
-        repeating-linear-gradient(0deg, rgba(255,106,0,0.03) 0 1px, transparent 1px 28px);
+        linear-gradient(90deg, rgba(255,106,0,0.28), rgba(255,184,107,0.12)),
+        repeating-linear-gradient(90deg, rgba(255,106,0,0.08) 0 1px, transparent 1px 28px),
+        repeating-linear-gradient(0deg, rgba(255,106,0,0.05) 0 1px, transparent 1px 28px);
     background-blend-mode: overlay, normal, normal;
     box-shadow: inset 0 -10px 40px rgba(255,106,0,0.03);
     position: relative;
@@ -663,6 +701,24 @@ section h2 {
     font-size: 1.5rem;
     color: var(--text);
 
+}
+
+/* Make the About section more compact */
+#about {
+    padding: 12px 0;
+}
+#about .wrap {
+    padding: 16px 10px;
+}
+#about h2 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+}
+#about p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+    max-width: 760px;
+    color: var(--muted);
 }
 
 .projects-list {
