@@ -18,6 +18,7 @@
     --accent-300: #ffb86b;
     --accent-100: #ffe8d2;
     --accent-contrast: #1a1200; /* text on accent */
+    --logo-color: #ffffff; /* default logo colour */
     --radius: 10px;
     --gap: 20px;
 
@@ -189,6 +190,25 @@ body.side-visible #side-box {
     display: block;
 
 }
+
+/* Logo SVG colour control: set `--logo-color` to change the SVG colour.
+   The inline SVG uses `currentColor` for its fill, and the `.logo--svg`
+   element picks up `color` from this variable. Examples:
+     :root { --logo-color: #ffffff; }
+     #site-header .logo--svg { --logo-color: #f89828; }
+*/
+.logo--svg {
+    color: var(--logo-color, var(--text));
+    display: inline-block;
+    height: 56px;
+    width: auto;
+}
+
+/* Slightly smaller footer variant */
+#footer-sect-1-fract-1 .logo--svg { height: 48px; }
+
+/* Logo colour is controlled by the CSS variable `--logo-color` set in `:root` or
+   overridden per-context (see `#site-logo.logo--svg` below). */
 
 #nav-main {
     display: flex;
