@@ -7,12 +7,12 @@
 /* ########################## */
 :root {
     /* warm, dark background to sit behind the orange accents */
-    --bg: #120a03;
-    --bg-2: #070402;
-    --surface: #1a0f05;
-    --card: #150c04;
+    --bg: #1b1208;
+    --bg-2: #0b0603;
+    --surface: #24140a;
+    --card: #1b0f06;
     --text: #e6eef6;
-    --muted: #bfa183;
+    --muted: #c9ad8f;
     --accent: #f89828; /* brand orange */
     --accent-dark: #c76b12;
     --accent-300: #ffb86b;

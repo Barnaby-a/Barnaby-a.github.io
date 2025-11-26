@@ -43,8 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', (ev) => {
                 ev.preventDefault();
                 const id = href.slice(hashIdx + 1);
-                const el = document.getElementById(id);
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // If this is the hero/home anchor, scroll to the absolute top to avoid
+                // the sticky header overlapping the target (scrollIntoView was leaving
+                // a ~100px offset). Otherwise, scroll to the section normally.
+                if (id === 'home' || id === 'hero') {
+                    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0,0); }
+                } else {
+                    const el = document.getElementById(id);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
                 // update active immediately
                 setTimeout(() => setActiveById(id), 50);
                 // update URL hash without reloading
@@ -160,8 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (hashIdx !== -1) {
                         ev.preventDefault();
                         const id = href.slice(hashIdx + 1);
-                        const target = document.getElementById(id);
-                        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // same home/hero special case here
+                        if (id === 'home' || id === 'hero') {
+                            try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0,0); }
+                        } else {
+                            const target = document.getElementById(id);
+                            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                         setActiveById(id);
                         document.body.classList.remove('side-visible');
                         try { history.replaceState(null, '', '#' + id); } catch (e) {}
