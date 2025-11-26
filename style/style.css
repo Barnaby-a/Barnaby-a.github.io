@@ -48,14 +48,14 @@ Quick examples:
 /*########### THEME ##########*/
 /* ########################## */
 :root {
-    /* warm, dark background to sit behind the orange accents */
-    --bg: #1b1208;
-    --bg-2: #0b0603;
-    --surface: #24140a;
-    --card: #1b0f06;
-    --text: #e6eef6;
-    --muted: #c9ad8f;
-    --accent: #f89828; /* brand orange */
+    /* darker, higher-contrast palette — keeps `--accent` unchanged */
+    --bg: #06080b;    /* very dark background */
+    --bg-2: #05060a;   /* slightly darker secondary */
+    --surface: #0b1216;/* deep cool surface for panels */
+    --card: #071018;   /* card backgrounds */
+    --text: #ffffff;   /* full bright text for contrast */
+    --muted: #93a3ad;  /* desaturated muted tone */
+    --accent: #ff6a00; /* updated brand orange */
     --accent-dark: #c76b12;
     --accent-300: #ffb86b;
     --accent-100: #ffe8d2;
@@ -65,6 +65,14 @@ Quick examples:
     --gap: 20px;
     --header-height: 64px; /* approximate sticky header height for vertical centering calculations */
 
+    /* Orange-theme colours & animation */
+    --orange-1: #ff6a00; /* primary orange (matches --accent) */
+    --orange-2: #ffb86b; /* lighter orange */
+    --orange-3: #ffe8d2; /* pale highlight */
+    --orange-glow: 0 0 36px rgba(255,106,0,0.08), 0 0 120px rgba(255,184,107,0.04);
+    --grid-color: rgba(255,106,0,0.06);
+    --grid-color-2: rgba(255,184,107,0.04);
+    --bg-anim-speed: 20s; /* animation loop speed for background shift */
 }
 
 /* Global */
@@ -87,11 +95,69 @@ html {
 body {
     margin: 0;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(180deg, var(--bg), var(--bg-2) 140%);
+    background: var(--bg);
+    position: relative; /* enable pseudo-elements to be fixed behind content */
+    overflow-x: hidden;
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+}
+
+/* ========================= */
+/* Orange background layers */
+/* ========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    /* enlarge the pseudo-element so animated shifts never reveal viewport edges */
+    inset: -15%;
+    pointer-events: none;
+    z-index: -2; /* keep behind all content */
+    will-change: transform, opacity;
+    /* Layered background: warm orange washes + soft grid */
+    background-image:
+        /* vertical grid */
+        repeating-linear-gradient(90deg, var(--grid-color) 0px, var(--grid-color) 1px, transparent 1px, transparent 48px),
+        /* horizontal grid */
+        repeating-linear-gradient(0deg, var(--grid-color-2) 0px, var(--grid-color-2) 1px, transparent 1px, transparent 44px),
+        /* soft radial highlights */
+        radial-gradient(700px 380px at 12% 18%, rgba(255,184,107,0.12), transparent 20%),
+        radial-gradient(560px 320px at 88% 32%, rgba(255,106,0,0.10), transparent 22%),
+        linear-gradient(120deg, rgba(255,184,107,0.06), rgba(255,106,0,0.05) 40%, rgba(255,230,210,0.04) 70%);
+    background-blend-mode: screen, screen, screen, screen, normal;
+    /* ensure repeating grids tile correctly and large highlights cover beyond viewport */
+    background-size: 48px 100%, 100% 44px, 1400px 800px, 1200px 700px, cover;
+    background-position: 0 0, 0 0, 12% 18%, 88% 32%, 0 0;
+    transform-origin: center;
+    animation: bgShift var(--bg-anim-speed) linear infinite;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    /* subtle warm scanlines */
+    background-image: linear-gradient(transparent 70%, rgba(255,180,120,0.02) 71%);
+    background-size: 100% 4px;
+    opacity: 0.8;
+}
+
+@keyframes bgShift {
+    0% { transform: translate3d(0,0,0) rotate(0deg); }
+    25% { transform: translate3d(-3%,2%,0) rotate(.6deg); }
+    50% { transform: translate3d(-6%,-2%,0) rotate(-.4deg); }
+    75% { transform: translate3d(3%,-1%,0) rotate(.8deg); }
+    100% { transform: translate3d(0,0,0) rotate(0deg); }
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    body::before { animation: none; }
+    * { scroll-behavior: auto; }
 }
 
 .wrap {
@@ -168,13 +234,13 @@ a:hover {
     right: 14px;
     top: 10%; /* move side box toward the top */
     transform: translateX(120%);
-    /* use theme surface with a subtle vertical gradient for depth */
-    background: linear-gradient(180deg, rgba(20,12,6,0.94), rgba(14,9,5,0.90));
+    /* darker cool surface for side-box */
+    background: linear-gradient(180deg, rgba(5,8,12,0.96), rgba(6,10,15,0.94));
     color: var(--text);
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.03);
-    box-shadow: 0 10px 30px rgba(2,6,10,0.45);
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.7);
     transition: transform .32s cubic-bezier(.2,.9,.2,1), opacity .22s ease;
     opacity: 0;
     z-index: 1200;
@@ -213,12 +279,12 @@ body.side-visible #side-box {
         content: "";
         position: absolute;
         inset: 0;
-        /* strong orange on the right fading to transparent to the left */
-        background: linear-gradient(90deg, transparent 40%, rgba(248,152,40,0.96) 100%);
+        /* strong orange on the right fading to transparent to the left; use brand accent for vibrancy */
+        background: linear-gradient(90deg, transparent 35%, var(--accent) 100%);
         backdrop-filter: blur(6px);
         border-bottom: 1px solid rgba(255,255,255,0.03);
-        /* subtle visible tint by default; intensifies when scrolled */
-        opacity: 0.18;
+        /* subtle visible tint by default (increased for more pop); intensifies when scrolled */
+        opacity: 0.28;
         pointer-events: none;
         transition: opacity .22s ease;
         z-index: 0;
@@ -408,7 +474,7 @@ body.side-visible #side-box {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.28));
+    background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.62));
     border-radius: 25px;
     z-index: 1;
     pointer-events: none;
@@ -420,10 +486,10 @@ body.side-visible #side-box {
     display: inline-block;
     position: relative;
     z-index: 4;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.72); /* stronger localized contrast */
     padding: 12px 20px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,1);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.95);
     text-align: center;
 }
 
@@ -547,9 +613,9 @@ section h2 {
 /* Footer */
 
 footer {
-    background: rgba(6,8,10,0.6);
+    background: rgba(4,6,9,0.82);
     color: var(--muted);
-    border-top: 1px solid rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(255,255,255,0.04);
 
 }
 
