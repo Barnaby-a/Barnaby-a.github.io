@@ -335,17 +335,45 @@ body.side-visible #side-box {
 
 /* Ensure children (heading, lead, buttons) sit above any background or overlays */
 #hero > .wrap, #hero-content-wrap { position: relative; }
-#hero > .wrap > * , #hero-content-wrap > * { position: relative; z-index: 2; }
+#hero > .wrap > * , #hero-content-wrap > * { position: relative; z-index: 3; }
 
-/* Subtle overlay behind content to improve contrast but below text */
+/* Lighter global overlay so the image colour remains vibrant; main contrast comes
+   from the localized hero panel (see `.hero-panel` below). */
 #hero > .wrap::before, #hero-content-wrap::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.28));
+    background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.28));
     border-radius: 25px;
     z-index: 1;
     pointer-events: none;
+}
+
+/* Localized translucent panel behind the text to improve legibility without
+   washing out the overall image. Wrap the headline/lead/CTA inside `.hero-panel`. */
+.hero-panel {
+    display: inline-block;
+    position: relative;
+    z-index: 4;
+    background: rgba(0,0,0,0.5);
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,1);
+    text-align: center;
+}
+
+/* Slightly stronger text shadows inside the panel for crispness */
+.hero-panel h1 {
+    text-shadow: 0 8px 26px rgba(0,0,0,0.68);
+}
+.hero-panel .lead {
+    text-shadow: 0 6px 18px rgba(0,0,0,0.62);
+}
+
+/* Make CTAs pop without changing their colour; add a subtle outline and shadow */
+.hero-panel .cta {
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.06);
 }
 
 #hero h1 {
