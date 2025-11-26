@@ -446,52 +446,73 @@ body.side-visible #side-box {
 /* Hero */
 
 #hero {
-    /* Full viewport hero but account for sticky header so the card is vertically centred
-       between header bottom and viewport bottom */
-    min-height: calc(100vh - var(--header-height));
+    /* Almost full-screen hero with breathing space above/below */
+    /* increased content height: subtract less so cards become taller */
+    height: calc(100vh - var(--header-height) - 20px);
     display: flex;
-    align-items: center;
+    align-items: stretch; /* make both columns match height */
     justify-content: center;
-    padding: 0; /* inner wrapper provides its own padding */
-    text-align: center;
+    gap: 28px;
+    padding: 48px; /* equal margin on all sides */
+    text-align: left;
 }
 
-/* Ensure the hero's inner wrapper matches other section widths */
-/* The centered hero box should fill most of the viewport height on desktop */
-#hero > .wrap,
-#hero-content-wrap {
-    display: block;
+/* Left profile card + right hero card live as direct children of #hero */
+.hero-profile {
+    width: 320px;
+    flex: 0 0 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    background: transparent;
+    height: 100%; /* fill the hero height */
+    overflow: hidden;
+}
+.hero-profile {
+    align-items: center;
+    text-align: center;
+}
+.profile-pic {
     width: 100%;
-    max-width: 1100px; /* same as .wrap */
-    margin: 0 auto;
-    padding: 40px 20px; /* match .wrap spacing */
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+}
+.profile-name { margin: 8px 0 4px; font-size: 1.25rem; }
+.about { margin: 0 0 8px; color: var(--muted); }
+
+#hero > .wrap, #hero-content-wrap {
+    flex: 1 1 60%;
+    padding: 32px;
+    box-sizing: border-box;
     background-image: url(hero-1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 25px;
-    box-sizing: border-box;
-    /* keep the centered hero box at a wide, short ratio (width is double the height) */
-    aspect-ratio: 2 / 1;
+    border: 2px solid var(--accent);
+    border-radius: 16px;
     display: flex;
-    flex-direction: column; /* stack heading, tagline, buttons vertically */
-    gap: 6px;
-    align-items: center; /* horizontally center items */
-    justify-content: center; /* vertically center within the box */
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%; /* match the profile column's height */
+    position: relative;
 }
 
-/* Ensure children (heading, lead, buttons) sit above any background or overlays */
-#hero > .wrap, #hero-content-wrap { position: relative; }
-#hero > .wrap > * , #hero-content-wrap > * { position: relative; z-index: 3; }
-
-/* Lighter global overlay so the image colour remains vibrant; main contrast comes
-   from the localized hero panel (see `.hero-panel` below). */
+/* Overlay to slightly darken the hero image for legibility */
 #hero > .wrap::before, #hero-content-wrap::before {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.62));
-    border-radius: 25px;
+    border-radius: 16px;
     z-index: 1;
     pointer-events: none;
 }
@@ -499,14 +520,22 @@ body.side-visible #side-box {
 /* Localized translucent panel behind the text to improve legibility without
    washing out the overall image. Wrap the headline/lead/CTA inside `.hero-panel`. */
 .hero-panel {
-    display: inline-block;
     position: relative;
-    z-index: 4;
-    background: rgba(0,0,0,0.72); /* stronger localized contrast */
+    z-index: 3;
+    background: rgba(0,0,0,0.72);
     padding: 12px 20px;
     border-radius: 12px;
     box-shadow: 0 12px 36px rgba(0,0,0,0.95);
-    text-align: center;
+    text-align: left;
+}
+
+@media (max-width: 900px) {
+    #hero { flex-direction: column; gap: 18px; align-items: stretch; padding: 24px 14px; height: auto; }
+    .hero-profile { width: 100%; flex-direction: row; align-items: center; gap: 14px; height: auto; padding: 12px; }
+    .profile-pic { width: 128px; height: 128px; border-radius: 10px; }
+    #hero > .wrap { width: 100%; padding: 20px; height: auto; }
+    #hero > .wrap::before { border-radius: 12px; }
+    .hero-panel { text-align: center; }
 }
 
 /* Slightly stronger text shadows inside the panel for crispness */
