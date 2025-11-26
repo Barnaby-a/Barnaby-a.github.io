@@ -525,10 +525,8 @@ body.side-visible #side-box {
     flex: 1 1 60%;
     padding: 32px;
     box-sizing: border-box;
-    background-image: url(hero-1.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* use the same deep surface as the profile card instead of a photo */
+    background: linear-gradient(180deg, rgba(7,16,24,0.98), rgba(8,14,20,0.98));
     border: 2px solid var(--accent);
     border-radius: 16px;
     display: flex;
@@ -538,6 +536,7 @@ body.side-visible #side-box {
     justify-content: center;
     height: 100%; /* match the profile column's height */
     position: relative;
+    overflow: hidden; /* keep radial burst contained */
 }
 
 /* Overlay to slightly darken the hero image for legibility */
@@ -549,6 +548,33 @@ body.side-visible #side-box {
     border-radius: 16px;
     z-index: 1;
     pointer-events: none;
+}
+
+/* Orange radial burst overlay for the hero card */
+#hero > .wrap::after, #hero-content-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2; /* sits above the darkening ::before but below .hero-panel (z-index:3) */
+    /* radial burst centered in the card */
+    background: radial-gradient(circle at center, rgba(255,106,0,0.20) 0%, rgba(255,184,107,0.08) 22%, transparent 55%);
+    mix-blend-mode: screen;
+    transform-origin: center;
+    border-radius: 16px;
+    opacity: 0.95;
+    animation: burstPulse 8s ease-in-out infinite;
+}
+
+@keyframes burstPulse {
+    0% { transform: scale(1); opacity: 0.92; }
+    50% { transform: scale(1.02); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.92; }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    #hero > .wrap::after, #hero-content-wrap::after { animation: none; }
 }
 
 /* Localized translucent panel behind the text to improve legibility without
@@ -662,6 +688,33 @@ body.side-visible #side-box {
     border-radius: 10px;
     font-weight: 700;
 
+}
+
+/* Make profile-card button(s) match the dynamic behaviour of other CTAs */
+.hero-profile .btn {
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background-color .12s ease, border-color .12s ease;
+    will-change: transform, box-shadow, background-color;
+}
+.hero-profile .btn:hover,
+.hero-profile .btn:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45), 0 0 20px rgba(255,106,0,0.08);
+    z-index: 6;
+}
+.hero-profile .btn:active {
+    transform: translateY(-1px);
+}
+.hero-profile .btn.btn-outline {
+    color: var(--accent);
+    border-color: rgba(255,255,255,0.06);
+}
+.hero-profile .btn.btn-outline:hover,
+.hero-profile .btn.btn-outline:focus-visible {
+    background: rgba(255,255,255,0.02);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.55), 0 0 24px rgba(255,106,0,0.10);
 }
 
 /* Make the hero 'Get in touch' link look like an outlined button with transparent background */
