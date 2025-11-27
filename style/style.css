@@ -1016,3 +1016,35 @@ footer {
 }
 
 /* End of stylesheet */
+
+/* ========================= */
+/* Entrance / reveal effects */
+/* ========================= */
+:root {
+    --reveal-ease: cubic-bezier(.15,.9,.3,1);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(18px) scale(.995);
+    transition: opacity 620ms var(--reveal-ease), transform 620ms var(--reveal-ease);
+    will-change: transform, opacity;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Optional direction/scale helpers */
+.reveal.from-left { transform: translateX(-18px) translateY(6px) scale(.995); }
+.reveal.from-right { transform: translateX(18px) translateY(6px) scale(.995); }
+.reveal.scale-up { transform: translateY(8px) scale(.98); }
+
+/* Header lift */
+#site-header.reveal { transform: translateY(-6px); transition: transform 420ms var(--reveal-ease), opacity 420ms var(--reveal-ease); }
+#site-header.reveal.is-visible { transform: none; opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none !important; transform: none !important; opacity: 1 !important; }
+}
