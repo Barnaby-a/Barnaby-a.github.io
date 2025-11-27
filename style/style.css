@@ -789,9 +789,31 @@ section h2 {
     border-radius: 12px;
     padding: 18px;
     box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* push tags to the bottom */
+    min-height: 200px;
 }
 .stack-item h3 { margin: 0 0 8px; font-size: 1.05rem; }
 .stack-item p { margin: 0; color: var(--muted); }
+
+/* Stack item internal layout: keep icon and main text grouped */
+.stack-top { display: flex; gap: 12px; align-items: flex-start; }
+.stack-body { flex: 1 1 auto; }
+
+/* Tag chips container and chips */
+.stack-tags { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.stack-tag {
+    display: inline-block;
+    background: rgba(255,106,0,0.06);
+    border: 1px solid rgba(255,106,0,0.12);
+    color: var(--accent-300);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1;
+}
 
 @media (max-width: 900px) {
     #full-stack .fullstack-grid { grid-template-columns: 1fr; }
