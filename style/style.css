@@ -800,10 +800,12 @@ section h2 {
 /* Center the Full Stack title */
 #full-stack .wrap h2 { text-align: center; }
 
-/* Stack item icons */
-.stack-icon { width: 56px; height: 56px; margin: 0 auto 10px; color: var(--accent); }
-.stack-icon svg { width: 56px; height: 56px; display: block; }
-.stack-item { text-align: center; }
+/* Stack item icons: left-aligned layout */
+.stack-icon { width: 48px; height: 48px; margin: 0 12px 0 0; color: var(--accent); display: inline-block; vertical-align: middle; }
+.stack-icon svg { width: 48px; height: 48px; display: block; }
+.stack-item { text-align: left; }
+.stack-item h3 { display: inline-block; vertical-align: middle; margin: 0; }
+.stack-item p { margin-top: 8px; }
 
 /* Make the About section more compact */
 #about {
