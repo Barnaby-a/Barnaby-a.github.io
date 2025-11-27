@@ -797,6 +797,14 @@ section h2 {
     #full-stack .fullstack-grid { grid-template-columns: 1fr; }
 }
 
+/* Center the Full Stack title */
+#full-stack .wrap h2 { text-align: center; }
+
+/* Stack item icons */
+.stack-icon { width: 56px; height: 56px; margin: 0 auto 10px; color: var(--accent); }
+.stack-icon svg { width: 56px; height: 56px; display: block; }
+.stack-item { text-align: center; }
+
 /* Make the About section more compact */
 #about {
     padding: 12px 0;
