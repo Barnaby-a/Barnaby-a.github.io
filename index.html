@@ -92,7 +92,14 @@
                             </div>
                             <div class="about-row">
                                 <div class="row-title">Tools</div>
-                                <div class="row-value">Python . HTML · CSS · JS · </div>
+                                <div class="row-value">
+                                    <div class="lang-pills" aria-label="Core languages">
+                                        <span class="lang-pill lang-html" title="HTML">HTML</span>
+                                        <span class="lang-pill lang-css" title="CSS">CSS</span>
+                                        <span class="lang-pill lang-js" title="JavaScript">JS</span>
+                                        <span class="lang-pill lang-py" title="Python">PY</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="about-row">
                                 <div class="row-title">Interests</div>
@@ -120,10 +127,12 @@
                             </div>
                         </div>
                         <div class="stack-tags">
-                            <span class="stack-tag">C</span>
-                            <span class="stack-tag">C++</span>
-                            <span class="stack-tag">KiCad</span>
-                            <span class="stack-tag">PCB</span>
+                            <div class="lang-pills stack-pills" aria-label="Hardware tools">
+                                <span class="lang-pill lang-c" title="C">C</span>
+                                <span class="lang-pill lang-cpp" title="C++">C++</span>
+                                <span class="lang-pill lang-kicad" title="KiCad">KiCad</span>
+                                <span class="lang-pill lang-pcb" title="PCB design">PCB</span>
+                            </div>
                         </div>
                     </article>
 
@@ -138,10 +147,12 @@
                             </div>
                         </div>
                         <div class="stack-tags">
-                            <span class="stack-tag">C</span>
-                            <span class="stack-tag">RTOS</span>
-                            <span class="stack-tag">Zephyr</span>
-                            <span class="stack-tag">CMSIS</span>
+                            <div class="lang-pills stack-pills" aria-label="Firmware tools">
+                                <span class="lang-pill lang-c" title="C">C</span>
+                                <span class="lang-pill lang-rtos" title="RTOS">RTOS</span>
+                                <span class="lang-pill lang-zephyr" title="Zephyr">Zephyr</span>
+                                <span class="lang-pill lang-cmsis" title="CMSIS">CMSIS</span>
+                            </div>
                         </div>
                     </article>
 
@@ -156,10 +167,12 @@
                             </div>
                         </div>
                         <div class="stack-tags">
-                            <span class="stack-tag">Node</span>
-                            <span class="stack-tag">Python</span>
-                            <span class="stack-tag">Docker</span>
-                            <span class="stack-tag">Postgres</span>
+                            <div class="lang-pills stack-pills" aria-label="Software tools">
+                                <span class="lang-pill lang-node" title="Node.js">Node</span>
+                                <span class="lang-pill lang-py" title="Python">Python</span>
+                                <span class="lang-pill lang-docker" title="Docker">Docker</span>
+                                <span class="lang-pill lang-postgres" title="Postgres">Postgres</span>
+                            </div>
                         </div>
                     </article>
 
@@ -174,10 +187,12 @@
                             </div>
                         </div>
                         <div class="stack-tags">
-                            <span class="stack-tag">HTML</span>
-                            <span class="stack-tag">CSS</span>
-                            <span class="stack-tag">JavaScript</span>
-                            <span class="stack-tag">React</span>
+                            <div class="lang-pills stack-pills" aria-label="Web app tools">
+                                <span class="lang-pill lang-html" title="HTML">HTML</span>
+                                <span class="lang-pill lang-css" title="CSS">CSS</span>
+                                <span class="lang-pill lang-js" title="JavaScript">JS</span>
+                                <span class="lang-pill lang-react" title="React">React</span>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -186,11 +201,21 @@
 
         <section id="projects">
             <div class="wrap">
-                <h2>Selected Projects</h2>
+                <h2>My Top Projects</h2>
                 <ul class="projects-list">
-                    <li>
-                        <h3>Project One</h3>
-                        <p>Short description and tech stack. <a href="#">View project</a></p>
+                    <li class="project-card video-card">
+                        <div class="project-media">
+                            <video src="style/DRFU%20VID.mp4" autoplay muted loop playsinline controls aria-label="Devon RFU Colts website preview"></video>
+                        </div>
+                        <h3>Devon RFU Colts website</h3>
+                        <p class="project-desc">Responsive fixtures and results hub for the Devon RFU Colts competition, with streamlined updates for coaches and admins.</p>
+                        <div class="lang-pills" aria-label="Tech stack">
+                            <span class="lang-pill lang-html" title="HTML">HTML</span>
+                            <span class="lang-pill lang-css" title="CSS">CSS</span>
+                            <span class="lang-pill lang-js" title="JavaScript">JS</span>
+                            <span class="lang-pill lang-py" title="Python">PY</span>
+                        </div>
+                        <p><a href="https://github.com/Barnaby-a/Devon-RFU-Colts-Website" target="_blank" rel="noopener">View project</a></p>
                     </li>
                     <li>
                         <h3>Project Two</h3>
@@ -224,7 +249,8 @@
             
                 <div id="footer-sect-1-fract-2">
                     <h2>GET IN TOUCH</h2>
-                    <a href="mailto:barnaby" class="links">Send Message</a>
+                    <a href="mailto:barnaby" class="links">Drop me an Email</a>
+                    <a href="https://wa.me/07853802092" class="links">Chat on WhatsApp</a>
                 </div>
 
                 <div id="footer-sect-1-fract-3">
@@ -240,8 +266,8 @@
                     <div class="social-row">
                         <a class="links" href="https://github.com/Barnaby-a" aria-label="GitHub" target="_blank" rel="noopener"><img src="style/icons/github.svg" alt="GitHub Icon" id="github-icon"></a>
                         <a class="links" href="https://www.linkedin.com/in/barnaby-a-50267739a/" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="style/icons/linkedin.svg" alt="LinkedIn Icon" id="linkedin-icon"></a>
-                        <a class="links" href="#" aria-label="Instagram"><img src="style/icons/instagram.svg" alt="Instagram Icon" id="instagram-icon"></a>
-                        <a class="links" href="#" aria-label="WhatsApp"><img src="style/icons/whatsapp.svg" alt="WhatsApp Icon" id="whatsapp-icon"></a>
+                        <a class="links" href="https://www.instagram.com/barnaby.adams8" aria-label="Instagram"><img src="style/icons/instagram.svg" alt="Instagram Icon" id="instagram-icon"></a>
+                        <a class="links" href="https://wa.me/07853802092" aria-label="WhatsApp"><img src="style/icons/whatsapp.svg" alt="WhatsApp Icon" id="whatsapp-icon"></a>
                     </div>
                 </div>
             </div>
@@ -249,12 +275,10 @@
             <div id="footer-section-2">
                 <div id="footer-sect-2-fract-1">
                     <p>Copyright &copy; 2025 Barnaby Adams | All rights reserved.</p>
-                    <p><a href="/privacy-policy" class="links">Privacy Policy</a>|<a href="/cookie-policy" class="links">Cookie Policy</a></p>
                 </div>
 
                 <div id="footer-sect-2-fract-2">
                     <p>Website by <a href="https://www.linkedin.com/in/barnaby-a-50267739a/" class="links" id="barnaby-link">Barnaby Adams</a></p>
-                    <!-- logo colour is controlled by the CSS variable `--logo-color` in `style/style.css` -->
                 </div>
             </div>
         </div>

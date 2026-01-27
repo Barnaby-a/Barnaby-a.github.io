@@ -837,7 +837,7 @@ section h2 {
     padding: 16px 10px;
 }
 #about h2 {
-    font-size: 1.15rem;
+    font-size: 1.5rem;
     margin-bottom: 6px;
 }
 #about p {
@@ -911,6 +911,78 @@ section h2 {
     font-size: 1.05rem;
 
 }
+
+.projects-list .project-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.projects-list .project-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.projects-list .project-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.project-desc {
+    margin: 0 0 10px;
+    color: var(--muted);
+}
+
+.lang-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 10px;
+}
+
+.stack-pills { margin-top: 14px; }
+
+.lang-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.lang-pill::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.lang-html::before { background: #e44d26; }
+.lang-css::before { background: #264de4; }
+.lang-js::before { background: #f0db4f; }
+.lang-py::before { background: #3776ab; }
+.lang-node::before { background: #83cd29; }
+.lang-docker::before { background: #0db7ed; }
+.lang-postgres::before { background: #336791; }
+.lang-react::before { background: #61dafb; }
+.lang-c::before { background: #5c6bc0; }
+.lang-cpp::before { background: #004482; }
+.lang-kicad::before { background: #173f90; }
+.lang-pcb::before { background: #4caf50; }
+.lang-rtos::before { background: #8e44ad; }
+.lang-zephyr::before { background: #406cf9; }
+.lang-cmsis::before { background: #009688; }
 
 /* Footer */
 
