@@ -972,6 +972,10 @@ section h2 {
 .lang-css::before { background: #264de4; }
 .lang-js::before { background: #f0db4f; }
 .lang-py::before { background: #3776ab; }
+.lang-php::before { background: #777bb3; }
+.lang-sql::before { background: #0064a5; }
+.lang-gcode::before { background: #ff9800; }
+.lang-bash::before { background: #3e474a; }
 .lang-node::before { background: #83cd29; }
 .lang-docker::before { background: #0db7ed; }
 .lang-postgres::before { background: #336791; }
