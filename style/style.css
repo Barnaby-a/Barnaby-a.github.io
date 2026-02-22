@@ -895,7 +895,7 @@ section h2 {
     list-style: none;
     padding: 0;
     margin: 18px 0 0;
-
+    align-items: start;
 }
 
 .projects-list li {
@@ -979,6 +979,7 @@ section h2 {
 .lang-node::before { background: #83cd29; }
 .lang-docker::before { background: #0db7ed; }
 .lang-postgres::before { background: #336791; }
+.lang-sqlite::before { background: #003b57; }
 .lang-react::before { background: #61dafb; }
 .lang-c::before { background: #5c6bc0; }
 .lang-cpp::before { background: #004482; }
@@ -987,6 +988,8 @@ section h2 {
 .lang-rtos::before { background: #8e44ad; }
 .lang-zephyr::before { background: #406cf9; }
 .lang-cmsis::before { background: #009688; }
+.lang-cs::before { background: #512bd4; }
+.lang-micropython::before { background: #2c3e50; }
 
 /* Footer */
 
